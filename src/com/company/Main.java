@@ -74,13 +74,13 @@ public class Main {
             i = inputInt();
             switch (i) {
                 case (1):
-                    card1.accrual();
+                    accrualcard(card1);
                     break;
                 case (2):
-                    card2.accrual();
+                    accrualcard(card2);
                     break;
                 case (3):
-                    card3.accrual();
+                    accrualcard(card3);
                     break;
                 case (4):
                     break;
@@ -99,13 +99,13 @@ public class Main {
             i = inputInt();
             switch (i) {
                 case (1):
-                    card1.withdrawal();
+                    withdrawalcard(card1);
                     break;
                 case (2):
-                    card2.withdrawal();
+                    withdrawalcard(card2);
                     break;
                 case (3):
-                    card3.withdrawal();
+                    withdrawalcard(card3);
                     break;
                 case (4):
                     break;
@@ -214,6 +214,38 @@ public class Main {
         }
         number = sc.nextInt();
         return (number);
+    }
+
+    public static double inputDouble(){
+        Scanner sc = new Scanner(System.in);
+        double number;
+        while (!sc.hasNextDouble()) {
+            System.out.print("Вы ввели явно не сумму, попробуйте ещё раз: ");
+            sc = new Scanner(System.in);
+        }
+        number = sc.nextDouble();
+        return (number);
+    }
+
+    public static void withdrawalcard(CreditCard card){
+        System.out.print("Введите сумму, которую хотите снять со счёта: ");
+        double reduceSum = inputDouble();
+        if(reduceSum > card.getInvoiceSum()){
+            System.out.println("\u001B[31mНедотаточно средств.\u001B[0m");
+            System.out.println();
+        } else {
+            card.setInvoiceSum(card.getInvoiceSum() - reduceSum);
+            System.out.println("\u001B[32mУспешно!\u001B[0m");
+            System.out.println();
+        }
+    }
+
+    public static void accrualcard(CreditCard card){
+        System.out.print("Введите сумму, которую хотите положить на счёт: ");
+        double increaseSum = inputDouble();
+        card.setInvoiceSum(card.getInvoiceSum() + increaseSum);
+        System.out.println("\u001B[32mУспешно!\u001B[0m");
+        System.out.println();
     }
 
 }
